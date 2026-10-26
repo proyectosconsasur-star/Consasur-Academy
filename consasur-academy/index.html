@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consasur Academy | Escuela de formación práctica</title>
+<meta name="description" content="Consasur Academy: escuela de formación práctica. Explora nuestras aulas y cursos, empezando por la master class IA en el Aula.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08142B;--card:rgba(255,255,255,.04);--border:rgba(255,255,255,.09);
+  --text:#ececf6;--muted:#94A3B8;
+  --a1:#2F80ED;--a2:#FFC20E;
+  --grad:linear-gradient(120deg,#FFC20E,#FFDB66);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Outfit,sans-serif;background:radial-gradient(circle at 15% 5%,hsl(215 75% 20%),transparent 40%),radial-gradient(circle at 90% 60%,hsl(215 60% 15%),transparent 40%),var(--bg);color:var(--text);min-height:100vh}
+a{color:inherit}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wrap{max-width:1200px;margin:auto;padding:0 6vw}
+.eyebrow{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--a2);margin-bottom:.75rem}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;margin-bottom:.75rem}
+.lead{color:var(--muted);font-size:1.15rem;max-width:620px}
+
+/* Header */
+header{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);background:rgba(11,20,34,.6);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:800;font-size:1.15rem}
+.brand img{width:46px;height:46px;object-fit:contain}
+.nav ul{display:flex;gap:2rem;list-style:none}
+.nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--text)}
+
+/* Hero */
+.hero{min-height:calc(100vh - 70px);display:flex;flex-direction:column;justify-content:center;position:relative}
+.hero h1{font-size:clamp(3rem,8vw,6.2rem);font-weight:800;line-height:1;animation:up .8s ease both}
+.hero .lead{margin-top:1.5rem;animation:up .8s .15s ease both}
+.hero .actions{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;animation:up .8s .3s ease both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}}
+.orb{position:absolute;right:3vw;top:50%;width:min(36vw,420px);aspect-ratio:1;transform:translateY(-50%);background:url(assets/logo.png) center/contain no-repeat;filter:drop-shadow(0 0 35px rgba(47,128,237,.5)) drop-shadow(0 0 50px rgba(255,194,14,.25));opacity:.95;animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(calc(-50% - 18px))}}
+.cta{display:inline-block;padding:.95rem 1.9rem;border-radius:99px;background:var(--grad);color:#0F1B2D;font-weight:800;letter-spacing:.04em;text-decoration:none;box-shadow:0 8px 30px -8px var(--a1);transition:transform .2s,box-shadow .2s;border:0;font:inherit;font-weight:800;cursor:pointer}
+.cta:hover{transform:translateY(-3px);box-shadow:0 14px 36px -8px var(--a1)}
+.ghost{display:inline-block;padding:.95rem 1.9rem;border-radius:99px;border:1px solid var(--border);background:var(--card);text-decoration:none;transition:border-color .2s}
+.ghost:hover{border-color:var(--a2)}
+.stats{display:flex;gap:2.5rem;margin-top:3.5rem;flex-wrap:wrap}
+.stats b{display:block;font-size:2rem;font-weight:800}
+.stats small{color:var(--muted)}
+
+section{padding:6rem 0}
+
+/* Aulas */
+.filters{display:flex;gap:.5rem;margin:2rem 0;flex-wrap:wrap}
+.filter{font:inherit;cursor:pointer;padding:.55rem 1.1rem;border-radius:99px;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .2s}
+.filter.active{background:var(--grad);color:#0F1B2D;font-weight:600;border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
+.aula{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:22px;background:var(--card);overflow:hidden;text-decoration:none;transition:transform .3s,border-color .3s,box-shadow .3s;animation:up .5s ease both}
+.aula:hover{transform:translateY(-6px);border-color:var(--a1);box-shadow:0 20px 50px -20px var(--a1)}
+.cover{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,hsl(215 60% 22%),hsl(215 50% 16%))}
+.cover img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.aula:hover .cover img{transform:scale(1.06)}
+.cover .icon{position:absolute;inset:0;display:grid;place-items:center;font-size:3.5rem;opacity:.55}
+.badge{position:absolute;top:1rem;left:1rem;padding:.35rem .8rem;border-radius:99px;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.badge.open{background:rgba(255,194,14,.2);color:var(--a2);border:1px solid rgba(255,194,14,.4)}
+.badge.soon{background:rgba(255,255,255,.08);color:var(--muted);border:1px solid var(--border)}
+.edition{position:absolute;top:1rem;right:1rem;padding:.35rem .8rem;border-radius:99px;font-size:.75rem;background:rgba(11,20,34,.7);backdrop-filter:blur(8px)}
+.body{padding:1.5rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+.body small.area{color:var(--a2);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.body h3{font-size:1.4rem;line-height:1.2}
+.body p{color:var(--muted);font-size:.98rem}
+.meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:auto;padding-top:1rem}
+.meta span{padding:.35rem .8rem;border-radius:99px;border:1px solid var(--border);font-size:.82rem}
+.enter{margin-top:1rem;font-weight:600;display:flex;align-items:center;gap:.4rem}
+.aula:hover .enter .arrow{transform:translateX(5px)}
+.arrow{transition:transform .25s}
+.aula.disabled{cursor:default;opacity:.75}
+.aula.disabled:hover{transform:none;border-color:var(--border);box-shadow:none}
+
+/* Sobre */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.pillar{padding:1.75rem;border:1px solid var(--border);border-radius:20px;background:var(--card)}
+.pillar span{font-size:2rem}
+.pillar h3{margin:.75rem 0 .4rem}
+.pillar p{color:var(--muted)}
+
+.slogan{font-size:clamp(1.3rem,2.6vw,1.8rem);font-weight:600;margin-top:1rem;color:var(--a2);animation:up .8s .1s ease both}
+.biz{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.biz-list{list-style:none;display:grid;gap:1rem}
+.biz-list li{display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;border:1px solid var(--border);border-radius:18px;background:var(--card);transition:border-color .25s,transform .25s}
+.biz-list li:hover{border-color:var(--a1);transform:translateX(4px)}
+.biz-list span{font-size:1.7rem}
+.biz-list b{display:block}
+.biz-list small{color:var(--muted)}
+#empresas{background:linear-gradient(180deg,transparent,rgba(255,194,14,.05),transparent)}
+footer{border-top:1px solid var(--border);padding:2.5rem 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center}
+
+@media(max-width:820px){.biz{grid-template-columns:1fr}.nav ul{display:none}.orb{opacity:.25;right:-25vw;width:80vw}.pillars{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Modal Cotización Empresas */
+.modal-overlay{position:fixed;inset:0;background:rgba(8,20,43,.84);backdrop-filter:blur(10px);display:none;place-items:center;z-index:100;padding:1.5rem;overflow-y:auto}
+.modal-overlay.open{display:grid}
+.modal-box{background:#0e1d38;border:1px solid rgba(255,255,255,.14);border-radius:24px;width:100%;max-width:540px;padding:2.2rem;position:relative;box-shadow:0 25px 60px -15px rgba(0,0,0,.7), 0 0 35px rgba(47,128,237,.25);animation:modalIn .3s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;display:grid;place-items:center;font-size:1.2rem;transition:all .2s}
+.modal-close:hover{background:rgba(255,255,255,.18);transform:rotate(90deg)}
+.modal-box h3{font-size:1.6rem;margin-bottom:.3rem}
+.modal-box p.desc{color:var(--muted);font-size:.92rem;margin-bottom:1.5rem}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.4rem;font-weight:600}
+.form-control{width:100%;padding:.85rem 1rem;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--text);font:inherit;font-size:.95rem;transition:border-color .2s;box-sizing:border-box}
+.form-control:focus{outline:none;border-color:var(--a1);background:rgba(255,255,255,.08)}
+.form-control option{background:#0e1d38;color:var(--text)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}.modal-box{padding:1.6rem}}
+.btn-wa-submit{width:100%;margin-top:1.2rem;padding:.95rem;border:0;border-radius:14px;font:inherit;font-weight:800;font-size:1rem;letter-spacing:.02em;cursor:pointer;background:#25D366;color:#05240f;display:flex;align-items:center;justify-content:center;gap:.6rem;box-shadow:0 8px 25px -5px rgba(37,211,102,.35);transition:transform .2s,filter .2s}
+.btn-wa-submit:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.wa-direct-link{display:block;text-align:center;margin-top:1rem;font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s;cursor:pointer}
+.wa-direct-link:hover{color:var(--a2);text-decoration:underline}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#" id="brand-home"><img src="assets/logo.png" alt="Logo Consasur Academy">Consasur Academy</a>
+    <nav aria-label="Principal"><ul>
+      <li><a href="#aulas" id="nav-aulas">Aulas</a></li>
+      <li><a href="#escuela" id="nav-escuela">La escuela</a></li>
+      <li><a href="#empresas" id="nav-empresas">Empresas</a></li>
+      <li><a href="#contacto" id="nav-contacto">Contacto</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="orb" aria-hidden="true"></div>
+    <p class="eyebrow">Escuela de formación práctica · Educación y construcción</p>
+    <h1>Consasur<br><span class="grad">Academy</span></h1>
+    <p class="slogan">Construimos conocimiento.</p>
+    <p class="lead">Cursos prácticos por ediciones para docentes, estudiantes, profesionales y empresas constructoras. Lo que aprendes aquí lo aplicas al día siguiente en el aula y en la obra.</p>
+    <div class="actions">
+      <a class="cta" href="#aulas" id="btn-ver-aulas">VER AULAS</a>
+      <a class="ghost" href="#empresas" id="btn-empresas-hero">Soy empresa</a>
+    </div>
+    <div class="stats">
+      <div><b class="grad" id="stat-aulas">1</b><small>Aula abierta</small></div>
+      <div><b class="grad">100%</b><small>Práctica</small></div>
+      <div><b class="grad">1.ª</b><small>Edición en curso</small></div>
+    </div>
+  </div>
+
+  <section id="aulas">
+    <div class="wrap">
+      <p class="eyebrow">Nuestras aulas</p>
+      <h2>Elige tu aula</h2>
+      <p class="lead">Cada aula es un curso. Se abren por ediciones y vamos sumando nuevos temas.</p>
+      <div class="filters" id="filters" hidden></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="escuela">
+    <div class="wrap">
+      <p class="eyebrow">La escuela</p>
+      <h2>Formación que se <span class="grad">aplica</span></h2>
+      <p class="lead">En Consasur Academy cada curso está pensado para que salgas con algo construido, no solo con apuntes.</p>
+      <div class="pillars">
+        <div class="pillar"><span>🛠️</span><h3>Aprender haciendo</h3><p>Talleres, retos y entregables en cada sesión.</p></div>
+        <div class="pillar"><span>🔁</span><h3>Por ediciones</h3><p>Cursos que se actualizan y mejoran en cada nueva edición.</p></div>
+        <div class="pillar"><span>🎓</span><h3>Certificación</h3><p>Proyecto final y certificado al completar cada aula.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="empresas">
+    <div class="wrap biz">
+      <div>
+        <p class="eyebrow">Para empresas</p>
+        <h2>Capacita a tu equipo <span class="grad">de obra a oficina</span></h2>
+        <p class="lead">Programas para empresas constructoras: desde residentes y supervisores hasta el área administrativa. Impartidos en sus instalaciones, en línea o en formato mixto.</p>
+        <button type="button" class="cta" id="btn-propuesta" style="margin-top:2rem">SOLICITAR COTIZACIÓN</button>
+      </div>
+      <ul class="biz-list">
+        <li><span>🏗️</span><div><b>Cursos a la medida</b><small>Contenido adaptado a los procesos y proyectos de tu empresa.</small></div></li>
+        <li><span>👷</span><div><b>Equipos completos</b><small>Grupos cerrados por área: obra, ingeniería y administración.</small></div></li>
+        <li><span>🤖</span><div><b>IA aplicada a la construcción</b><small>Presupuestos, reportes, planeación y documentación con IA.</small></div></li>
+        <li><span>📜</span><div><b>Constancias para el personal</b><small>Evaluación y certificado por participante.</small></div></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer id="contacto">
+  <div class="wrap">
+    <span>© 2026 Consasur Academy</span>
+    <span>Contacto: <a href="mailto:info@consasur.academy" id="link-email">info@consasur.academy</a></span>
+  </div>
+</footer>
+
+<!-- Modal Cotización Empresas -->
+<div class="modal-overlay" id="modal-empresas" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-emp-title">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="btn-cerrar-modal" aria-label="Cerrar modal">✕</button>
+    <p class="eyebrow">Capacitación corporativa</p>
+    <h3 id="modal-emp-title">Cotización para empresas</h3>
+    <p class="desc">Cuéntanos sobre tu equipo y te armamos una propuesta a la medida vía WhatsApp.</p>
+    
+    <form id="form-empresa">
+      <div class="form-group">
+        <label for="emp-nombre">Nombre de la empresa *</label>
+        <input class="form-control" id="emp-nombre" name="empresa" required placeholder="Ej. Constructora del Sureste S.A.">
+      </div>
+      <div class="form-group">
+        <label for="emp-contacto">Nombre del contacto y cargo *</label>
+        <input class="form-control" id="emp-contacto" name="contacto" required placeholder="Ej. Ing. Carlos Ruiz - Residente de Obra">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="emp-equipo">Colaboradores a capacitar</label>
+          <select class="form-control" id="emp-equipo" name="equipo">
+            <option value="1 a 5 personas">1 a 5 personas</option>
+            <option value="6 a 15 personas" selected>6 a 15 personas</option>
+            <option value="16 a 30 personas">16 a 30 personas</option>
+            <option value="Más de 30 personas">Más de 30 personas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="emp-modalidad">Modalidad preferida</label>
+          <select class="form-control" id="emp-modalidad" name="modalidad">
+            <option value="Presencial en oficina/obra" selected>Presencial en oficina/obra</option>
+            <option value="En línea en vivo">En línea en vivo</option>
+            <option value="Mixta / Híbrida">Mixta / Híbrida</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="emp-tema">Tema de interés</label>
+        <select class="form-control" id="emp-tema" name="tema">
+          <option value="IA aplicada a la construcción" selected>IA aplicada a la construcción</option>
+          <option value="Gestión y control de obra">Gestión y control de obra</option>
+          <option value="Presupuestos y análisis de costos">Presupuestos y análisis de costos</option>
+          <option value="Capacitación a la medida integral">Capacitación a la medida integral</option>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn-wa-submit" id="btn-enviar-wa">
+        <span>📲</span> Solicitar propuesta por WhatsApp
+      </button>
+
+      <a id="btn-wa-directo" class="wa-direct-link" target="_blank" rel="noopener">
+        ¿Prefieres escribirnos directamente? Clic aquí sin llenar formulario →
+      </a>
+    </form>
+  </div>
+</div>
+
+<script>
+/* Para agregar un aula nueva, añade un objeto a esta lista. */
+const AULAS=[
+  {titulo:"IA en el Aula: de usuario a creador",area:"Inteligencia Artificial",edicion:"1.ª edición",estado:"open",
+   desc:"Entender, dominar y usar con criterio la IA generativa para aprender y enseñar.",
+   meta:["6 sesiones","15 h","Docentes, estudiantes y profesionales"],img:"assets/aula-ia.jpg",url:"aulas/ia-en-el-aula/index.html"}
+];
+const grid=document.getElementById('grid');
+function render(f){
+  grid.innerHTML=AULAS.filter(a=>f==='all'||a.estado===f).map((a,i)=>{
+    const open=a.estado==='open', tag=open?'a':'div';
+    return `<${tag} class="aula ${open?'':'disabled'}" ${open?`href="${a.url}"`:''} id="aula-${i+1}" style="animation-delay:${i*.08}s">
+      <div class="cover">${a.img?`<img src="${a.img}" alt="${a.titulo}" loading="lazy">`:`<div class="icon">${a.icon||'📘'}</div>`}
+        <span class="badge ${a.estado}">${open?'Inscripciones abiertas':'Próximamente'}</span>
+        ${open?`<span class="edition">${a.edicion}</span>`:''}</div>
+      <div class="body"><small class="area">${a.area}</small><h3>${a.titulo}</h3><p>${a.desc}</p>
+        <div class="meta">${a.meta.map(m=>`<span>${m}</span>`).join('')}</div>
+        ${open?`<span class="enter">Entrar al aula <span class="arrow">→</span></span>`:''}</div>
+    </${tag}>`;
+  }).join('');
+}
+document.getElementById('filters').addEventListener('click',e=>{
+  const f=e.target.dataset.f;if(!f)return;
+  document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b===e.target));
+  render(f);
+});
+document.getElementById('stat-aulas').textContent=AULAS.filter(a=>a.estado==='open').length;
+render('all');
+
+/* Logica Modal Empresas WhatsApp */
+const WHATSAPP_NUMBER = "529611772254";
+const modalEmpresas = document.getElementById('modal-empresas');
+const btnPropuesta = document.getElementById('btn-propuesta');
+const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+const formEmpresa = document.getElementById('form-empresa');
+const btnWaDirecto = document.getElementById('btn-wa-directo');
+
+const directMsg = encodeURIComponent("Hola Consasur Academy, me interesa una cotización de capacitación para el equipo de mi empresa constructora.");
+btnWaDirecto.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${directMsg}`;
+
+function openModal() {
+  modalEmpresas.classList.add('open');
+  modalEmpresas.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('emp-nombre').focus(), 100);
+}
+
+function closeModal() {
+  modalEmpresas.classList.remove('open');
+  modalEmpresas.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+btnPropuesta.addEventListener('click', openModal);
+btnCerrarModal.addEventListener('click', closeModal);
+modalEmpresas.addEventListener('click', e => {
+  if (e.target === modalEmpresas) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modalEmpresas.classList.contains('open')) closeModal();
+});
+
+formEmpresa.addEventListener('submit', e => {
+  e.preventDefault();
+  const empresa = document.getElementById('emp-nombre').value.trim();
+  const contacto = document.getElementById('emp-contacto').value.trim();
+  const equipo = document.getElementById('emp-equipo').value;
+  const modalidad = document.getElementById('emp-modalidad').value;
+  const tema = document.getElementById('emp-tema').value;
+
+  const msgLines = [
+    "Hola Consasur Academy, me interesa una cotización de capacitación para mi empresa:",
+    "",
+    "🏢 *Empresa:* " + empresa,
+    "👤 *Contacto:* " + contacto,
+    "👥 *Equipo:* " + equipo,
+    "🎯 *Tema de interés:* " + tema,
+    "📍 *Modalidad:* " + modalidad,
+    "",
+    "¿Podrían brindarme información y costos de una propuesta empresarial?"
+  ];
+
+  const fullUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msgLines.join('\n'))}`;
+  window.open(fullUrl, '_blank');
+  closeModal();
+});
+</script>
+</body>
+</html>
